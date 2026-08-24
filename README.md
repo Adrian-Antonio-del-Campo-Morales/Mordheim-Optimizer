@@ -32,7 +32,7 @@ Download the portable executable from the
 It is a single file and does not require Python or installation.
 
 
-[Descargar Trollheim Optimizer Portable 6.1.0](https://github.com/Adrian-Antonio-del-Campo-Morales/Mordheim-Optimizer/releases/download/v1.0.0/Mordheim-Optimizer-Portable-1.0.0.exe)
+[Descargar Trollheim Optimizer Portable 1.0.0](https://github.com/Adrian-Antonio-del-Campo-Morales/Mordheim-Optimizer/releases/download/v1.0.0/Mordheim-Optimizer-Portable-1.0.0.exe)
 
 
 Windows SmartScreen may warn about an unsigned application. Verify that the
