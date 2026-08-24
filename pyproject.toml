@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mordheim-optimizer"
+version = "1.0.0"
+description = "Monte Carlo close-combat optimizer for Mordheim"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<3",
+    "openpyxl>=3.1,<4",
+    "PyYAML>=6,<7",
+]
+
+[project.gui-scripts]
+mordheim = "mordheim_optimizer.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/mordheim_optimizer/knowledge/bands" = ["sources/knowledge/bands/*.yaml"]
+"share/mordheim_optimizer/knowledge/catalog" = ["sources/knowledge/catalog/*.yaml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
