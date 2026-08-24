@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Redesigned the interface for a clearer, more polished visual experience.
+- Improved the layout and styling of controls, panels, and results.
+
 ## 1.0.0
 
 - First public release of Mordheim Optimizer.
