@@ -1875,10 +1875,10 @@ class WarriorConfigFrame(ttk.Frame):
         self.title = title
 
         self.stats = {
-            "HA": 4,
-            "F": 3,
-            "R": 3,
-            "H": 1,
+            "WS": 4,
+            "S": 3,
+            "T": 3,
+            "W": 1,
             "I": 4,
             "A": 1,
         }
@@ -3393,7 +3393,7 @@ class MordheimApp(tk.Tk):
             for label, _kind, _value in self._equipment_options()
         }
         self.improvement_attribute_vars = {
-            attr: tk.BooleanVar(value=True) for attr in ("I", "HA", "F", "R", "A", "H")
+            attr: tk.BooleanVar(value=True) for attr in ("I", "WS", "S", "T", "A", "W")
         }
         self.improvement_skill_vars = {
             skill: tk.BooleanVar(value=True) for skill in SKILLS
@@ -5644,7 +5644,7 @@ class MordheimApp(tk.Tk):
         """List improvements that still apply to this profile."""
         upgrades = []
 
-        for attr in ["I", "HA", "F", "R", "A", "H"]:
+        for attr in ["I", "WS", "S", "T", "A", "W"]:
             attribute_vars = getattr(self, "improvement_attribute_vars", None)
             if attribute_vars is not None and not attribute_vars[attr].get():
                 continue

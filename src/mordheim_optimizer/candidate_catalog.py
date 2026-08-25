@@ -517,8 +517,8 @@ def _build_profile(band, profile, equipment_lists, band_skills) -> CandidateProf
         "natural_armour_stacks": "may be combined with other equipment" in rule_text,
     }
     stats = {
-        "HA": int(characteristics.get("WS", 0)), "F": int(characteristics.get("S", 0)),
-        "R": int(characteristics.get("T", 0)), "H": int(characteristics.get("W", 0)),
+        "WS": int(characteristics.get("WS", 0)), "S": int(characteristics.get("S", 0)),
+        "T": int(characteristics.get("T", 0)), "W": int(characteristics.get("W", 0)),
         "I": int(characteristics.get("I", 0)), "A": int(characteristics.get("A", 0)),
     }
     return CandidateProfile(

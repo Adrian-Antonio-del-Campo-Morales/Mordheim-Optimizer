@@ -16,10 +16,10 @@ from mordheim_optimizer.rules import WEAPON_MACE, WEAPON_SWORD
 
 def fighter(**changes):
     base = {
-        "HA": 4,
-        "F": 3,
-        "R": 3,
-        "H": 1,
+        "WS": 4,
+        "S": 3,
+        "T": 3,
+        "W": 1,
         "I": 4,
         "A": 1,
         "skills": [],
@@ -84,27 +84,27 @@ def test_mandrake_knockdown_can_be_cancelled_by_spring_up():
 
 def test_luck_amulet_reduces_the_attackers_win_rate():
     attacker = fighter(main_weapon="Mace")
-    plain = fighter(HA=3, I=3, main_weapon="Mace")
+    plain = fighter(WS=3, I=3, main_weapon="Mace")
     protected = fighter(
-        HA=3, I=3, main_weapon="Mace", has_luck_amulet=True
+        WS=3, I=3, main_weapon="Mace", has_luck_amulet=True
     )
     assert win_rate(attacker, protected) < win_rate(attacker, plain)
 
 
 def test_sigmarite_hammer_is_better_against_unholy_targets():
     attacker = fighter(main_weapon="Sigmarite hammer")
-    normal = fighter(R=4, HA=3, I=3, main_weapon="Mace")
+    normal = fighter(T=4, WS=3, I=3, main_weapon="Mace")
     unholy = fighter(
-        R=4, HA=3, I=3, main_weapon="Mace", undead_or_possessed=True
+        T=4, WS=3, I=3, main_weapon="Mace", undead_or_possessed=True
     )
     assert win_rate(attacker, unholy) > win_rate(attacker, normal) + 0.04
 
 
 def test_chitin_armour_is_vulnerable_to_the_brazier_staff():
     attacker = fighter(main_weapon="Brazier iron")
-    light = fighter(H=2, HA=3, I=3, main_weapon="Mace", armor="Light armour")
+    light = fighter(W=2, WS=3, I=3, main_weapon="Mace", armor="Light armour")
     chitin = fighter(
-        H=2, HA=3, I=3, main_weapon="Mace", armor="Spider chitin armour"
+        W=2, WS=3, I=3, main_weapon="Mace", armor="Spider chitin armour"
     )
     assert win_rate(attacker, chitin) > win_rate(attacker, light) + 0.03
 
@@ -112,26 +112,26 @@ def test_chitin_armour_is_vulnerable_to_the_brazier_staff():
 def test_spider_spit_improves_the_poisoned_weapon():
     plain = fighter(A=2, main_weapon="Sword")
     poisoned = fighter(A=2, main_weapon="Sword", main_poison="Spider Spittle")
-    defender = fighter(HA=3, I=3, main_weapon="Mace")
+    defender = fighter(WS=3, I=3, main_weapon="Mace")
     assert win_rate(poisoned, defender) > win_rate(plain, defender) + 0.02
 
 
 def test_infallible_strike_improves_wound_rerolls():
-    plain = fighter(F=2, main_weapon="Sword")
-    infallible = fighter(F=2, main_weapon="Sword", skills=["Sure Strike"])
-    defender = fighter(R=4, HA=3, I=3, main_weapon="Mace")
+    plain = fighter(S=2, main_weapon="Sword")
+    infallible = fighter(S=2, main_weapon="Sword", skills=["Sure Strike"])
+    defender = fighter(T=4, WS=3, I=3, main_weapon="Mace")
     assert win_rate(infallible, defender) > win_rate(plain, defender) + 0.04
 
 
 def test_elven_agility_reduces_enemy_win_rate():
     attacker = fighter(A=2, main_weapon="Mace")
-    plain = fighter(HA=3, I=3, main_weapon="Sword")
-    agile = fighter(HA=3, I=3, main_weapon="Sword", skills=["Elven Agility"])
+    plain = fighter(WS=3, I=3, main_weapon="Sword")
+    agile = fighter(WS=3, I=3, main_weapon="Sword", skills=["Elven Agility"])
     assert win_rate(attacker, agile) < win_rate(attacker, plain) - 0.02
 
 
 def test_unwinnable_duel_is_excluded_from_results():
-    candidate = fighter(HA=1, F=1, R=10, I=1, main_weapon="Dagger")
+    candidate = fighter(WS=1, S=1, T=10, I=1, main_weapon="Dagger")
     enemies = np.stack([candidate.copy()])
     wins, resolved = _simulate_batch(
         candidate, enemies, np.zeros(20, dtype=np.int64), 20, 123

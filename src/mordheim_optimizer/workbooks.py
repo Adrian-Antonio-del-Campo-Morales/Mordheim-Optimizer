@@ -88,7 +88,7 @@ def _label_value(ws, row: int, label: str, value, column: int = 1) -> None:
 
 def _attributes(ws, row: int, config: dict) -> int:
     """Draw the attribute strip with six identical cells."""
-    stats = ("HA", "F", "R", "H", "I", "A")
+    stats = ("WS", "S", "T", "W", "I", "A")
     for column, stat in enumerate(stats, 1):
         header = ws.cell(row, column, stat)
         header.fill = PatternFill("solid", fgColor=GOLD)

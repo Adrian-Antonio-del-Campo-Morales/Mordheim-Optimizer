@@ -16,7 +16,7 @@ from mordheim_optimizer import engine  # noqa: E402
 
 
 base = {
-    "HA": 3, "F": 3, "R": 3, "H": 1, "I": 3, "A": 1,
+    "WS": 3, "S": 3, "T": 3, "W": 1, "I": 3, "A": 1,
     "skills": [], "main_weapon": "Sword", "off_hand": "None",
     "armor": "No armour",
 }
@@ -31,8 +31,8 @@ CASES = (
     ),
     (
         "Multiple attacks and wounds",
-        {"HA": 4, "A": 3, "off_hand": "Axe"},
-        {"HA": 4, "H": 2, "R": 4, "armor": "Heavy armour"},
+        {"WS": 4, "A": 3, "off_hand": "Axe"},
+        {"WS": 4, "W": 2, "T": 4, "armor": "Heavy armour"},
     ),
     (
         "Heavy armour",

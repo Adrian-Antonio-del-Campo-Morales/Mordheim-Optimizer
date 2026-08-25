@@ -70,10 +70,10 @@ from mordheim_optimizer.rules import (
 
 
 BASE_FIGHTER = {
-    "HA": 4,
-    "F": 3,
-    "R": 3,
-    "H": 1,
+    "WS": 4,
+    "S": 3,
+    "T": 3,
+    "W": 1,
     "I": 4,
     "A": 1,
     "skills": [],
@@ -127,9 +127,9 @@ def test_two_handed_weapon_disables_offhand_and_initiative():
 
 def test_powerful_blow_increases_strength():
     fighter = _make_fighter(BASE_FIGHTER | {"skills": ["Mighty Blow"]})
-    assert fighter[1] == BASE_FIGHTER["F"]
-    assert _attack_strength(fighter, WEAPON_SWORD, False) == BASE_FIGHTER["F"] + 1
-    assert _armour_strength(fighter, WEAPON_SWORD) == BASE_FIGHTER["F"] + 1
+    assert fighter[1] == BASE_FIGHTER["S"]
+    assert _attack_strength(fighter, WEAPON_SWORD, False) == BASE_FIGHTER["S"] + 1
+    assert _armour_strength(fighter, WEAPON_SWORD) == BASE_FIGHTER["S"] + 1
 
 
 def test_offhand_codes_are_translated_to_weapon_codes():
@@ -451,7 +451,7 @@ def test_weapon_materials_modify_combat_profile():
     obsidian = _make_fighter(BASE_FIGHTER | {"main_weapon_material": "Obsidian"})
     assert _extra_armour_penalty(gromril, WEAPON_SWORD) == 1
     assert _combat_initiative(ithilmar) == BASE_FIGHTER["I"] + 1
-    assert _attack_strength(obsidian, WEAPON_SWORD, False) == BASE_FIGHTER["F"] + 1
+    assert _attack_strength(obsidian, WEAPON_SWORD, False) == BASE_FIGHTER["S"] + 1
 
 
 def test_offhand_material_only_affects_offhand_attacks():
@@ -469,9 +469,9 @@ def test_offhand_material_only_affects_offhand_attacks():
 def test_preparations_modify_the_compact_profile():
     crimson = _make_fighter(BASE_FIGHTER | {"preparations": ["Crimson Shade"]})
     mandrake = _make_fighter(BASE_FIGHTER | {"preparations": ["Mandrake Root"]})
-    assert crimson[1] == BASE_FIGHTER["F"] + 1
+    assert crimson[1] == BASE_FIGHTER["S"] + 1
     assert crimson[14] == PREPARATION_CRIMSON_SHADE
-    assert mandrake[2] == BASE_FIGHTER["R"] + 1
+    assert mandrake[2] == BASE_FIGHTER["T"] + 1
     assert mandrake[14] == PREPARATION_MANDRAKE_ROOT
 
 
@@ -482,8 +482,8 @@ def test_multiple_preparations_accumulate_compatible_effects():
             "Mad Cap Mushrooms", "Head-splitter mushrooms",
         ],
     })
-    assert combined[1] == BASE_FIGHTER["F"] + 1
-    assert combined[2] == BASE_FIGHTER["R"] + 1
+    assert combined[1] == BASE_FIGHTER["S"] + 1
+    assert combined[2] == BASE_FIGHTER["T"] + 1
     assert combined[14] & PREPARATION_CRIMSON_SHADE
     assert combined[14] & PREPARATION_MANDRAKE_ROOT
     assert combined[14] & PREPARATION_MAD_CAP

@@ -39,7 +39,7 @@ def test_core_mercenary_uses_canonical_english_options_and_skills():
 
 def test_english_equipment_reaches_existing_numeric_engine_codes():
     fighter = _make_fighter({
-        "HA": 3, "F": 3, "R": 3, "H": 1, "I": 3, "A": 1,
+        "WS": 3, "S": 3, "T": 3, "W": 1, "I": 3, "A": 1,
         "main_weapon": "Sword", "off_hand": "Shield", "armor": "Heavy armour",
     })
     assert fighter[6] == WEAPON_SWORD
@@ -58,7 +58,7 @@ def test_freely_translated_mordheim_skill_does_not_replace_mordheim_rule():
 
 def _fighter(weapon, *, attacks=1, skills=()):
     return _make_fighter({
-        "HA": 3, "F": 3, "R": 3, "H": 1, "I": 3, "A": attacks,
+        "WS": 3, "S": 3, "T": 3, "W": 1, "I": 3, "A": attacks,
         "main_weapon": weapon, "off_hand": "None", "armor": "No Armour",
         "skills": skills,
     })

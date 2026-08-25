@@ -23,10 +23,10 @@ from mordheim_optimizer.ui import DEFAULT_COMBO_SIMULATIONS, MordheimApp
 
 
 FIGHTER = {
-    "HA": 4,
-    "F": 3,
-    "R": 3,
-    "H": 1,
+    "WS": 4,
+    "S": 3,
+    "T": 3,
+    "W": 1,
     "I": 4,
     "A": 1,
     "skills": [],
@@ -65,7 +65,7 @@ def test_worker_runs_a_small_custom_matchup():
         FIGHTER,
         "custom",
         FIGHTER | {
-            "HA": 3,
+            "WS": 3,
             "I": 3,
             "skills": [],
             "main_weapon": "Sword",
@@ -92,7 +92,7 @@ def test_worker_accepts_multiple_manual_enemies_with_shared_selection():
     total = 200
     enemies = [
         FIGHTER | {"enemy_name": "Swordsman"},
-        FIGHTER | {"enemy_name": "Brute", "F": 4, "main_weapon": "Mace"},
+        FIGHTER | {"enemy_name": "Brute", "S": 4, "main_weapon": "Mace"},
     ]
     indices = np.tile(np.array([0, 1], dtype=np.int64), total // 2)
     args = (
@@ -112,7 +112,7 @@ def test_random_enemy_equipment_is_legal_and_levels_are_applied():
     assert config["off_hand"] in {name for name, *_ in legal["off"]}
     assert config["armor"] in {name for name, *_ in legal["armor"]}
     assert sum(config[attr] - ENEMY_PROFILES["Human warrior"][attr]
-               for attr in ("HA", "F", "R", "H", "I", "A")) + len(config["skills"]) == 4
+               for attr in ("WS", "S", "T", "W", "I", "A")) + len(config["skills"]) == 4
     if config["main_weapon"] in TWO_HANDED_WEAPONS:
         assert config["off_hand"] in {"None", "Shield", "Dagger", "Mace", "Axe", "Sword"}
 
@@ -257,8 +257,8 @@ def test_new_permanent_skill_bonuses_are_encoded_in_fighter():
     fighter = engine._make_fighter(FIGHTER | {
         "skills": ["Iron Sinews", "Monstrous", "Red Fury", "Very Tough"],
     })
-    assert fighter[1] == FIGHTER["F"] + 1
-    assert fighter[3] == FIGHTER["H"] + 1
+    assert fighter[1] == FIGHTER["S"] + 1
+    assert fighter[3] == FIGHTER["W"] + 1
     assert fighter[5] == FIGHTER["A"] + 1
     assert fighter[8] == engine._armor_base_save(FIGHTER["armor"]) - 1
 
@@ -277,8 +277,8 @@ def test_new_permanent_skill_bonuses_are_encoded_in_fighter():
     fighter = engine._make_fighter(FIGHTER | {
         "skills": ["Iron Sinews", "Monstrous", "Red Fury", "Very Tough"],
     })
-    assert fighter[1] == FIGHTER["F"] + 1
-    assert fighter[3] == FIGHTER["H"] + 1
+    assert fighter[1] == FIGHTER["S"] + 1
+    assert fighter[3] == FIGHTER["W"] + 1
     assert fighter[5] == FIGHTER["A"] + 1
     assert fighter[8] == engine._armor_base_save(FIGHTER["armor"]) - 1
 

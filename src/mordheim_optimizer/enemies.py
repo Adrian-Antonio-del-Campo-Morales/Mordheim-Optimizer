@@ -4,6 +4,11 @@ DIFFICULTIES = ("Low", "Medium", "High")
 
 
 def _profile(difficulty, weight, bands, equipment, **stats):
+    # Enemy definitions still use the former Spanish abbreviations. Expose the
+    # canonical Mordheim characteristics used by the rest of the application.
+    for old, canonical in {"HA": "WS", "F": "S", "R": "T", "H": "W"}.items():
+        if old in stats:
+            stats[canonical] = stats.pop(old)
     return {
         **stats,
         "difficulty": difficulty,

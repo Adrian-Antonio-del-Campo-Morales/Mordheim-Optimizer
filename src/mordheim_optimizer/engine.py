@@ -301,17 +301,17 @@ def _make_fighter(config):
         armor_save -= 7 - natural_armour_save
         natural_armour_save = 7
 
-    base_strength = config["F"] + bool(skills & SKILL_IRON_SINEWS)
-    base_wounds = config["H"] + bool(skills & SKILL_MONSTROUS)
+    base_strength = config["S"] + bool(skills & SKILL_IRON_SINEWS)
+    base_wounds = config["W"] + bool(skills & SKILL_MONSTROUS)
     base_attacks = config["A"] + bool(skills & SKILL_RED_FURY)
     if skills & SKILL_UNARMED_ART and main in (WEAPON_UNARMED, WEAPON_ESHIN_CLAWS):
         base_attacks += 1
 
     return np.array(
         [
-            config["HA"] + int(main == WEAPON_CATHAYAN_LONGSWORD),
+            config["WS"] + int(main == WEAPON_CATHAYAN_LONGSWORD),
             base_strength + bool(preparation & PREPARATION_CRIMSON_SHADE),
-            config["R"] + bool(preparation & PREPARATION_MANDRAKE_ROOT),
+            config["T"] + bool(preparation & PREPARATION_MANDRAKE_ROOT),
             base_wounds,
             config["I"],
             base_attacks,
@@ -2012,7 +2012,7 @@ def _weighted_choice(rng, options):
 def _random_enemy_config(name, level, rng):
     profile = ENEMY_PROFILES[name]
     equipment = profile["equipment"]
-    config = {key: profile[key] for key in ("HA", "F", "R", "H", "I", "A")}
+    config = {key: profile[key] for key in ("WS", "S", "T", "W", "I", "A")}
     config["skills"] = list(profile.get("skills", []))
     config["disease_immune"] = name in {"Zombie", "Skeleton", "Vampire", "Possessed"}
     config["undead_or_possessed"] = name in {
@@ -2054,9 +2054,9 @@ def _random_enemy_config(name, level, rng):
         if skill in advance_skills:
             advance_skills.remove(skill)
     for _ in range(max(0, int(level))):
-        choices = ["HA", "F", "R", "H", "I", "A", *advance_skills]
+        choices = ["WS", "S", "T", "W", "I", "A", *advance_skills]
         choice = choices[int(rng.integers(len(choices)))]
-        if choice in ("HA", "F", "R", "H", "I", "A"):
+        if choice in ("WS", "S", "T", "W", "I", "A"):
             config[choice] += 1
         elif choice not in config["skills"]:
             config["skills"].append(choice)
@@ -2155,9 +2155,9 @@ def run_single_task_optimized(args):
                         available_skills = [
                             skill for skill in skill_pool if skill not in config["skills"]
                         ]
-                        options = ["HA", "F", "R", "H", "I", "A", *available_skills]
+                        options = ["WS", "S", "T", "W", "I", "A", *available_skills]
                         upgrade = options[int(rng.integers(len(options)))]
-                        if upgrade in ("HA", "F", "R", "H", "I", "A"):
+                        if upgrade in ("WS", "S", "T", "W", "I", "A"):
                             config[upgrade] += 1
                         elif upgrade not in config["skills"]:
                             config["skills"].append(upgrade)

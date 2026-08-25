@@ -32,7 +32,7 @@ def _payload():
             "candidate_name": "Rat with papers",
             "candidate_band_id": "mordheim-skaven",
             "candidate_profile_id": "eshin-assassin",
-            "HA": 4, "F": 4, "R": 3, "H": 1, "I": 5, "A": 1,
+            "WS": 4, "S": 4, "T": 3, "W": 1, "I": 5, "A": 1,
             "skills": ["Mighty Blow"], "main_weapon": "Sword",
             "off_hand": "Dagger", "main_weapon_material": "Normal",
             "offhand_material": "Normal", "armor": "Light armour",
@@ -48,16 +48,16 @@ def _payload():
             "mode": "custom", "level": 2, "difficulties": [],
             "profiles": [
                 {
-                    "enemy_name": "Brute", "HA": 3, "F": 4, "R": 4,
-                    "H": 1, "I": 2, "A": 1, "skills": [],
+                    "enemy_name": "Brute", "WS": 3, "S": 4, "T": 4,
+                    "W": 1, "I": 2, "A": 1, "skills": [],
                     "main_weapon": "Mace", "off_hand": "None",
                     "main_weapon_material": "Normal",
                     "offhand_material": "Normal", "armor": "No Armour",
                     "has_helmet": False,
                 },
                 {
-                    "enemy_name": "Fast", "HA": 4, "F": 3, "R": 3,
-                    "H": 1, "I": 5, "A": 2, "skills": ["Lightning Reflexes"],
+                    "enemy_name": "Fast", "WS": 4, "S": 3, "T": 3,
+                    "W": 1, "I": 5, "A": 2, "skills": ["Lightning Reflexes"],
                     "main_weapon": "Sword", "off_hand": "Dagger",
                     "main_weapon_material": "Normal",
                     "offhand_material": "Normal", "armor": "Light armour",
@@ -116,7 +116,7 @@ def test_canonical_candidate_catalog_is_complete():
     assert len(bands) == 49
     assert sum(len(band.profiles) for band in bands) == 318
     assassin = find_profile("skaven-clan-eshin", "assassin-adept")
-    assert assassin.stats == {"HA": 4, "F": 4, "R": 3, "H": 1, "I": 5, "A": 1}
+    assert assassin.stats == {"WS": 4, "S": 4, "T": 3, "W": 1, "I": 5, "A": 1}
     assert {"Sword", "Dagger", "Spear"} <= set(assassin.weapons)
     assert "Light armour" in assassin.armors
     assert "Mighty Blow" in assassin.skills
@@ -242,10 +242,10 @@ def test_candidate_workbook_round_trip_uses_only_the_current_format(tmp_path: Pa
         for value in summary_values
     )
     changed = _payload()
-    changed["config"]["HA"] = 5
+    changed["config"]["WS"] = 5
     save_candidate_workbook(path, changed)
     workbook = load_workbook(path, data_only=False)
-    assert load_candidate_workbook(path)["config"]["HA"] == 5
+    assert load_candidate_workbook(path)["config"]["WS"] == 5
 
     workbook[DATA_SHEET]["A1"] = "MORDHEIM_WORKBOOK_V0"
     workbook.save(path)
